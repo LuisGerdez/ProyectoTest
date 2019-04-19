@@ -6,14 +6,13 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		lista_p = FileSave.importarInfo();
 		
 		WindowMenu wm = new WindowMenu();
 		
 		if (FileSave.main_folder.exists() == false) {
 			FileSave.main_folder.mkdir();
 		}
-		
-		lista_p = FileSave.importarInfo();
 		
 //		//Creando objetos
 //		Persona p1 = new Persona("Luis","Gerdez1",18);

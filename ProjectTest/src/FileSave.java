@@ -5,8 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class FileSave {
-	public static File main_folder = new File(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"data");
+	public static File main_folder = new File(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"data"+File.separator);  // Set default value
 	public static File config_rute = new File(System.getProperty("user.home")+File.separator+"config.data");
 	
 	public static void exportarInfo(ArrayList<Persona> list) {
@@ -49,7 +51,23 @@ public class FileSave {
 		FileReader file_rd;
 		BufferedReader file_br;
 		
-		main_folder = new File(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"data");
+		file = new File(config_rute.getAbsolutePath());
+		
+		if (file.exists() == true) {
+			try {
+				file_rd = new FileReader(file);
+				file_br = new BufferedReader(file_rd);
+				
+				main_folder = new File(file_br.readLine());
+				file_br.close();
+			} catch (IOException e) {
+				
+			}
+			
+		} else {
+			System.out.println("Error");
+			main_folder = new File(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"data"+File.separator);
+		}
 		
 		file = new File(main_folder.getAbsolutePath()+File.separator+"info.txt");
 		
@@ -71,28 +89,15 @@ public class FileSave {
 					line = file_br.readLine();
 				}
 				file_br.close();
-				
-				
 			} catch (IOException e) {
 			}
-		}
-		
-		file = new File(config_rute.getAbsolutePath());
-		
-		if (file.exists() == true) {
-			try {
-				file_rd = new FileReader(file);
-				file_br = new BufferedReader(file_rd);
-				
-				main_folder = new File(file_br.readLine());
-				file_br.close();
-			} catch (IOException e) {
-				
-			}
-			
 		} else {
-			System.out.println("Error");
-			main_folder = new File(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"data");
+			JOptionPane.showMessageDialog(null, "No se ha encontrado la ubicación para guardar archivos");			
+			main_folder = new File(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"data"+File.separator);
+			file = new File(config_rute.getAbsolutePath());
+			file.delete();
+			FileSave.exportarInfo(Persona.lista_p);
+			JOptionPane.showMessageDialog(null, "Se ha establecido la ubicación por defecto '"+main_folder.getAbsolutePath()+File.separator+"'");
 		}
 	
 		return list;
