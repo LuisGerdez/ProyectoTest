@@ -13,9 +13,10 @@ public class FileSave {
 	
 	public static void exportarInfo(ArrayList<Persona> list) {
 		File file;
-		file = new File(main_folder.getAbsolutePath()+File.separator+"info.txt");
 		
 		try {
+			file = new File(main_folder.getAbsolutePath()+File.separator+"info.txt");
+			System.out.println("Creando obj file: "+ main_folder.getAbsolutePath());
 			FileWriter file_wr;
 			
 			file_wr = new FileWriter(file);

@@ -6,6 +6,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
 
@@ -49,7 +50,11 @@ public class WindowOpciones {
 				
 				if(sel==JFileChooser.APPROVE_OPTION){
 					FileSave.main_folder = fc.getSelectedFile();
+					File file = new File(FileSave.main_folder.getAbsolutePath());
+					file.mkdir();
+					
 					textField.setText(FileSave.main_folder.getAbsolutePath());
+					
 					FileSave.exportarInfo(Persona.lista_p);
 				}
 			}		   
